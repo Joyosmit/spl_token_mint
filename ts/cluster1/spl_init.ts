@@ -1,6 +1,6 @@
 import { Keypair, Connection, Commitment } from "@solana/web3.js";
 import { createMint } from '@solana/spl-token';
-import wallet from "../turbin3-wallet.json"
+import wallet from "/home/joyosmit/.config/solana/id.json"
 
 // Import our keypair from the wallet file
 const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
@@ -12,7 +12,17 @@ const connection = new Connection("https://api.devnet.solana.com", commitment);
 (async () => {
     try {
         // Start here
-        // const mint = ???
+        const mint = await createMint(
+            connection,
+            keypair,
+            keypair.publicKey,
+            null,
+            6
+        );
+
+        // Got this EWGmcSyz7EGR6KcPtvAuneZBS5Ma32UJBK3AkvyySN6L
+        console.log(`Mint created in base58: ${mint.toBase58()}`);
+        console.log(`Mint created: ${mint.toBase58()}`);
     } catch(error) {
         console.log(`Oops, something went wrong: ${error}`)
     }
